@@ -8,18 +8,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
+import { StatusBar } from "expo-status-bar";
 import { AntDesign } from "@expo/vector-icons";
 import colors from "./assets/colors";
-const { darkGrey, grey } = colors;
+const { darkGrey, grey, yellow } = colors;
 const App = () => {
   console.log(Constants.statusBarHeight);
   return (
     <ScrollView style={styles.body}>
+      <StatusBar style="light" backgroundColor={darkGrey} />
       <View style={styles.header}>
         <Image
           source={require("./assets/logo.png")}
           style={{ height: 30, width: 61 }}
-          resizeMode="cover"
+          resizeMode="contain"
         ></Image>
       </View>
       {/***********************************************
@@ -55,7 +57,7 @@ const App = () => {
         </View>
         <View style={styles.ranking}>
           <View style={styles.ranking_element}>
-            <AntDesign name="star" size={24} color="gold" />
+            <AntDesign name="star" size={24} color={yellow} />
             <Text style={{ color: "#fff" }}>8,6/10</Text>
             <Text style={{ color: "#929292", fontSize: 12 }}>1.1M</Text>
           </View>
@@ -80,8 +82,22 @@ const App = () => {
        ******************** ACTORS*********************
        * ******************************************* */}
       <View style={[styles.container]}>
-        <Text style={styles.title}>Top Billet Cast</Text>
-        <ScrollView style={[styles.actors]} horizontal={true}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.title}>Top Billet Cast</Text>
+          <Text style={{ color: "#0277bd" }}>SEE ALL</Text>
+        </View>
+
+        <ScrollView
+          style={[styles.actors]}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
           <View style={styles.actor_item}>
             <Image
               source={require("./assets/mathiew.jpg")}
@@ -89,7 +105,9 @@ const App = () => {
               resizeMode="cover"
             ></Image>
             <View style={styles.actor_details}>
-              <Text style={styles.actor_name}>Matthew McCon</Text>
+              <Text style={styles.actor_name} numberOfLines={1}>
+                Matthew Maccon...
+              </Text>
               <Text style={styles.actor_role}>Cooper</Text>
             </View>
           </View>
@@ -146,10 +164,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   header: {
-    paddingTop: 5,
-    paddingBottom: 5,
     paddingLeft: 15,
     backgroundColor: grey,
+    height: 40,
+    justifyContent: "center",
   },
   /*****************/
   /******Hero******/
@@ -157,6 +175,7 @@ const styles = StyleSheet.create({
   title: {
     color: "#C0C0C0",
     fontSize: 26,
+    textTransform: "capitalize",
   },
   details: {
     flexDirection: "row",
